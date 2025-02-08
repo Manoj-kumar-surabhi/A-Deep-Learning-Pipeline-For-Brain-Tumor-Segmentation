@@ -1,4 +1,4 @@
-project in development:
+Project in development:
 
  Aim: The Dataset is uploaded via a website which uploads to ADLS. When the button is clicked, it will trigger the pipeline to run in Azure Data Factory. ADF will run databricks to preprocess the data, then it will ingests the data into a new container in ADLS. From there Azure ML will use the processed dataset to build a deep learning model which will segregate the tumours. 
 
