@@ -17,7 +17,7 @@ Problem: We need huge database of MRI/CT scans of brain tumors.
  Languages: Python (Pyspark)
  What I have to do: Learn how to use Azure ML platform and find brain tumour datasets.
  When to Complete: By April Ending.
- Who are your groupmates: Surya.
+ Who are your groupmates: Surya.G
  Whats the use: 
            1. Able to learn and use CNN's
            2. Able to integrate Azure Services with web development.
