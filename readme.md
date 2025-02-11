@@ -23,3 +23,4 @@ Problem: We need huge database of MRI/CT scans of brain tumors.
            2. Able to integrate Azure Services with web development.
            3. This pipeline can be used in HealthCare for other purposes.
            4. As per the Course Requirements, we can simply develop  deep learning models but integrating all these services will hone our skills.
+Under Guidance of Dr. Hembroff
