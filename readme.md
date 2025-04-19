@@ -3,7 +3,7 @@ _A comparison of a manually‑defined TensorFlow‑Keras U‑Net versus a FastAI
 
 ---
 ### 📺 Presentation Video
-Watch the full project presentation on YouTube: [(https://youtu.be/Y3WdImIS9yU)]((https://youtu.be/Y3WdImIS9yU))
+Watch the full project presentation on YouTube: [(https://youtu.be/Y3WdImIS9yU)](https://youtu.be/Y3WdImIS9yU)
 
 
 ## 🚀 Project Objective
