@@ -2,6 +2,9 @@
 _A comparison of a manually‑defined TensorFlow‑Keras U‑Net versus a FastAI U‑Net with a pretrained xResNet34 encoder._
 
 ---
+### 📺 Presentation Video
+Watch the full project presentation on YouTube: [(https://youtu.be/Y3WdImIS9yU)]((https://youtu.be/Y3WdImIS9yU))
+
 
 ## 🚀 Project Objective
 Perform **pixel‑wise classification** of brain‑tumor MRI slices into:
@@ -41,10 +44,7 @@ Target: **mean Dice ≥ 0.75** for Azure ML Studio deployment.
 
 ---
 
-## 🧱 Repository Structure
-brain-tumor-unet/ ├── brats2020/ # Raw NIfTI volumes ├── slices/ # Generated 2D PNG slices & masks │ ├── images/ │ └── masks/ ├── notebooks/ │ ├── multi_class_segmentation.ipynb # TensorFlow-Keras manual U-Net │ └── u-net_with_xresnet.ipynb # FastAI xResNet34 U-Net ├── model_checkpoints/ # Best model weights ├── requirements.txt ├── README.md └── LICENSE
-
-### 3. Run a notebook
+### Run the notebook
 - **FastAI xResNet34 U‑Net:** `u-net_with_xresnet (1).ipynb`
 
 
