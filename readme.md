@@ -62,7 +62,6 @@ On **Azure ML Studio** upload the notebooks and dataset, attach a GPU compute 
 | -------------- | --------------------- | -------------------------- |
 | **Encoder**    | Conv blocks           | xResNet34 (pretrained)     |
 | **Input shape**| 256 × 256 × 2         | 256 × 256 × 2              |
-| **Batch size** | 8                     | 8                          |
 | **Loss**       | Categorical CE + Dice | Categorical CE + Dice      |
 | **Optimizer**  | Adam (lr=1e‑4)        | Adam (lr=1e‑3)             |
 | **Epochs**     | 25–30                 | 15 (fine‑tune)             |
