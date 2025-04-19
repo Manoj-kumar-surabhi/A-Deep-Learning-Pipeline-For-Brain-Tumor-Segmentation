@@ -1,27 +1,101 @@
-Project in development:
+# 🧠 Multi‑Class Segmentation of Brain Tumor Cells Using U‑Net Models
+_A comparison of a manually‑defined TensorFlow‑Keras U‑Net versus a FastAI U‑Net with a pretrained xResNet34 encoder._
 
- Aim: The Dataset is uploaded via a website which uploads to ADLS. When the button is clicked, it will trigger the pipeline to run in Azure Data Factory. ADF will run databricks to preprocess the data, then it will ingests the data into a new container in ADLS. From there Azure ML will use the processed dataset to build a deep learning model which will segregate the tumours. 
+---
 
- Steps:
- 1. Develop a website UI which can upload datasets into ADLS Containers.
- 2. Use Databricks for preprocessing  the data uploaded and ingest into a new container.
- 3. Extract the preprocessed dataset into Azure ML services, then develop deep learning models. Select which one has best accuracy to classify any new images.
- 4. Ingest all these seggregated images into new container.
- 5. All these orchestrated and run by Data Factory when clicked a button called "Classify" on the website developed.
+## 🚀 Project Objective
+Perform **pixel‑wise classification** of brain‑tumor MRI slices into:
 
-Problem: We need huge database of MRI/CT scans of brain tumors.
+| Label | Description                                     |
+|-------|-------------------------------------------------|
+| 0     | Background                                      |
+| 1     | **NCR/NET** – Necrotic & non‑enhancing core     |
+| 2     | **ED** – Peritumoral edema                      |
+| 3     | **ET** – Enhancing tumor                        |
 
- Techstack:
- Cloud: Azure ML(need to learn), DataBricks, Data Factory, DataLakeHouse.
- Web Development: HTML, CSS, JavaScript, React JS.
- Languages: Python (Pyspark)
- What I have to do: Learn how to use Azure ML platform and find brain tumour datasets.
- When to Complete: By April Ending.
- Who are your groupmates: Surya.G
- Whats the use: 
-           1. Able to learn and use CNN's
-           2. Able to integrate Azure Services with web development.
-           3. This pipeline can be used in HealthCare for other purposes.
-           4. As per the Course Requirements, we can simply develop  deep learning models but integrating all these services will hone our skills.
-Under Guidance of Dr. Hembroff
+Target: **mean Dice ≥ 0.75** for Azure ML Studio deployment.
 
+---
+
+## 📂 Dataset
+
+### BraTS 2020 (Training subset)
+- **Download (Kaggle):** [BraTS2020 Dataset](https://www.kaggle.com/datasets/sanglequang/brats2020)
+- **Subjects:** 369 training patients  
+- **Modalities per patient:** `T1`, `T1ce`, `T2`, `FLAIR`, and `seg`  
+- **Volume shape:** 240 × 240 × 155 voxels  
+- **Compressed size:** ≈ 3–4 GB (unzipped ≈ 11 GB)
+
+> **Note:** Accept the Kaggle challenge license before downloading.
+
+---
+
+## 🧪 Tools & Frameworks
+| Purpose                 | Library                        |
+|-------------------------|--------------------------------|
+| Deep Learning (TF/Keras)| `tensorflow>=2.8`              |
+| Deep Learning (PyTorch) | `torch>=2.0`, `fastai>=2.7`    |
+| 3D NIfTI I/O            | `nibabel`                      |
+| Image Processing        | `opencv-python`, `Pillow`, `scikit-image` |
+| Utilities               | `numpy`, `pandas`, `scikit-learn`, `matplotlib`, `tqdm` |
+
+---
+
+## 🧱 Repository Structure
+brain-tumor-unet/ ├── brats2020/ # Raw NIfTI volumes ├── slices/ # Generated 2D PNG slices & masks │ ├── images/ │ └── masks/ ├── notebooks/ │ ├── multi_class_segmentation.ipynb # TensorFlow-Keras manual U-Net │ └── u-net_with_xresnet.ipynb # FastAI xResNet34 U-Net ├── model_checkpoints/ # Best model weights ├── requirements.txt ├── README.md └── LICENSE
+
+### 3. Run a notebook
+- **FastAI xResNet34 U‑Net:** `u-net_with_xresnet (1).ipynb`
+
+
+1. Convert 3‑D volumes → 2‑D slices (T1ce + FLAIR channels).
+2. Train the respective U‑Net.
+3. Report per‑class and mean Dice.
+
+On **Azure ML Studio** upload the notebooks and dataset, attach a GPU compute target (e.g., `Standard_NC6s_v3`), and run cells as‑is.
+
+---
+
+### ⚙️ Training Details
+
+| Parameter      | Manual U‑Net          | FastAI U‑Net               |
+| -------------- | --------------------- | -------------------------- |
+| **Encoder**    | Conv blocks           | xResNet34 (pretrained)     |
+| **Input shape**| 256 × 256 × 2         | 256 × 256 × 2              |
+| **Batch size** | 8                     | 8                          |
+| **Loss**       | Categorical CE + Dice | Categorical CE + Dice      |
+| **Optimizer**  | Adam (lr=1e‑4)        | Adam (lr=1e‑3)             |
+| **Epochs**     | 25–30                 | 15 (fine‑tune)             |
+
+---
+
+### 📈 Results
+
+| Model                  | Mean Dice | NCR  | ED   | ET   |
+| ---------------------- | --------- | ---- | ---- | ---- |
+| Manual U‑Net (TF)      | 0.648     | 0.59 | 0.77 | 0.74 |
+| xResNet34 U‑Net (FAI)  | 0.747     | 0.65 | 0.81 | 0.78 |
+
+> The pretrained encoder improves small‑region detection (NCR) and lifts the overall mean Dice above the 0.75 deployment threshold.
+
+---
+
+### 💾 requirements.txt
+
+```text
+numpy
+pandas
+scikit-learn
+matplotlib
+opencv-python
+scikit-image
+Pillow
+nibabel
+# TensorFlow stack (manual U‑Net)
+tensorflow>=2.8
+# PyTorch + FastAI stack (pretrained U‑Net)
+torch>=2.0
+torchvision
+fastai>=2.7
+# Utilities
+tqdm
